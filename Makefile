@@ -79,11 +79,11 @@ zip_releases=$(addsuffix .zip, $(WINDOWS_ARCH_LIST))
 
 $(gz_releases): %.gz : %
 	chmod +x $(BINDIR)/$(NAME)-$(basename $@)
-	gzip -f -S -$(VERSION).gz $(BINDIR)/$(NAME)-$(basename $@)
+	gzip -f $(BINDIR)/$(NAME)-$(basename $@)
 
 $(zip_releases): %.zip : %
-	echo $(NAME)-$(basename $@).exe v2ray clash --subLink=\"订阅链接\" > $(BINDIR)/v2ray2clash.bat
-	zip -m -j $(BINDIR)/$(NAME)-$(basename $@)-$(VERSION).zip $(BINDIR)/$(NAME)-$(basename $@).exe $(BINDIR)/v2ray2clash.bat
+	echo $(NAME)-$(basename $@).exe vmess clash --subLink=\"订阅链接\" > $(BINDIR)/v2ray2clash.bat
+	zip -m -j $(BINDIR)/$(NAME)-$(basename $@).zip $(BINDIR)/$(NAME)-$(basename $@).exe $(BINDIR)/v2ray2clash.bat
 
 all-arch: $(PLATFORM_LIST) $(WINDOWS_ARCH_LIST)
 

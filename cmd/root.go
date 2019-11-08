@@ -29,13 +29,12 @@ var cfgFile string
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "translate",
-	Short: "A brief description of your application",
-	Long: `A longer description that spans multiple lines and likely contains
-examples and usage of using your application. For example:
+	Short: "translate代理协议转换工具",
+	Long: `translate计划支持两种转换方式：
+1. 终端命令行方式
+2. web订阅方式（todo）
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+计划支持协议（v2ray/ss/ssr)+多规则-->（clash/Quantumult(X)/Kitsunebi/surge/...)`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	//	Run: func(cmd *cobra.Command, args []string) { },

@@ -19,8 +19,8 @@
 .
 
 # 使用方法
-* 从release下载二进制文件
-* 解压响应版本的zip
+* 从[release](https://github.com/HarryWang29/translate/releases)下载二进制文件
+* 解压相应版本的压缩包
 ## mac/linux
 * 执行如下命令修改可执行权限
     ```bash
@@ -28,7 +28,7 @@
     ```
 * 执行如下命令将v2ray转为clash(保留双引号)
     ```bash
-    ./translate-darwin-amd64 v2ray clash --subLink="订阅链接"
+    ./translate-darwin-amd64 vmess clash --subLink="订阅链接"
     ```
 
 ## windows
