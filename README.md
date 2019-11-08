@@ -33,6 +33,9 @@
 
 ## windows
 ### v2ray --> clash
+* 用文本编辑器打开`v2ray2clash.bat`
+* 修改订阅链接
+* 保存退出
 * 双击`v2ray2clash.bat`
 
 # 感谢

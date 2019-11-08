@@ -1,6 +1,6 @@
 NAME=translate
 BINDIR=bin
-VERSION=1.0.4
+VERSION=v0.0.1
 BUILDTIME=$(shell date -u)
 GOBUILD=CGO_ENABLED=0 go build -ldflags '-w -s'
 
@@ -82,7 +82,8 @@ $(gz_releases): %.gz : %
 	gzip -f -S -$(VERSION).gz $(BINDIR)/$(NAME)-$(basename $@)
 
 $(zip_releases): %.zip : %
-	zip -m -j $(BINDIR)/$(NAME)-$(basename $@)-$(VERSION).zip $(BINDIR)/$(NAME)-$(basename $@).exe
+	echo $(NAME)-$(basename $@).exe v2ray clash --subLink=\"订阅链接\" > $(BINDIR)/v2ray2clash.bat
+	zip -m -j $(BINDIR)/$(NAME)-$(basename $@)-$(VERSION).zip $(BINDIR)/$(NAME)-$(basename $@).exe $(BINDIR)/v2ray2clash.bat
 
 all-arch: $(PLATFORM_LIST) $(WINDOWS_ARCH_LIST)
 
