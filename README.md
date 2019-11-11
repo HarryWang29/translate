@@ -22,6 +22,10 @@
 # 使用方法
 * 从[release](https://github.com/HarryWang29/translate/releases)下载二进制文件
 * 解压相应版本的压缩包
+* 多订阅链接直接提供多`--subLink=""`标签即可，样例如下
+    ```bash
+    ./translate-darwin-amd64 vmess clash --subLink="订阅链接1" --subLink="订阅链接2"
+    ```
 ## mac/linux
 * 执行如下命令修改可执行权限
     ```bash
