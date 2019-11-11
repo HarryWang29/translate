@@ -37,7 +37,8 @@ var VmessCmd = &cobra.Command{
 		if len(args) != 1 {
 			log.Fatal("args is error")
 		}
-		err := translate.Run(cmd.CalledAs(), args[0], ruleName, subLinks)
+		_args.Target = args[0]
+		err := translate.Run(cmd.CalledAs(), _args)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -46,9 +47,10 @@ var VmessCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(VmessCmd)
-	VmessCmd.PersistentFlags().StringSliceVar(&subLinks, "subLink", []string{}, "订阅链接")
+	VmessCmd.PersistentFlags().StringSliceVar(&_args.SubLinks, "subLink", []string{}, "订阅链接")
+	VmessCmd.PersistentFlags().StringVar(&_args.Npsboost, "npsboost", "", "喵帕斯过滤3j服务器")
 	//VmessCmd.PersistentFlags().StringVar(&ruleName, "ruleName", "", "订阅链接")
-	ruleName = "ConnersHua" //目前先只支持神机，其他后期再进行支持
+	_args.RuleName = "ConnersHua" //目前先只支持神机，其他后期再进行支持
 
 	// Here you will define your flags and configuration settings.
 

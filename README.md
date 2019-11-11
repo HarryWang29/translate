@@ -6,6 +6,7 @@
 - [X] 命令行版本
 - [ ] web版本
 - [X] 支持多订阅链接
+- [X] 支持喵帕斯订阅提取v3节点
 - [X] 将`v2ray`加入到`神机规则`中（clash）
 - [ ] 将`ssr`加入到`神机规则`中（clash）
 - [ ] 将`ss`加入到`神机规则`中（clash）
@@ -28,6 +29,15 @@
     or
     ./translate-darwin-amd64 vmess clash --subLink="订阅链接1,订阅链接2"
     ```
+ * 喵帕斯节点过滤功能，现在只支持vmess协议的订阅，增加`--npsboost`标签，样例如下：
+    * 获取喵帕斯v2ray订阅链接为`link1`
+    * 获取喵帕斯ssr订阅链接为`link2`
+    * 将`link2`中`mu=1`更改为`mu=0`为`link3`
+    * 组成命令为
+        ```bash
+        ./translate-darwin-amd64 vmess clash --subLink="link1" --npsboost="link3"
+        ```
+    * 注意，喵帕斯过滤功能无法和多订阅一起使用，此功能会按照ss订阅来过滤节点，会将第二个机场的所有节点全部过滤
 ## mac/linux
 * 执行如下命令修改可执行权限
     ```bash

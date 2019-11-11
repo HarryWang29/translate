@@ -11,10 +11,10 @@ type Vmess struct {
 	model.VmessSetting
 }
 
-func NewVmess(subLinks []string) api {
+func NewVmess(args *model.CliArgs) api {
 	return &Vmess{
 		apiBase: apiBase{
-			SubLinks: subLinks,
+			Args: args,
 		},
 	}
 }
@@ -35,7 +35,13 @@ func (t *Vmess) Run() ([]*model.Setting, error) {
 		if err != nil {
 			return nil, errors.Wrap(err, "v2.ToSetting")
 		}
-		ret = append(ret, s)
+		if len(t.NpsboostV3) == 0 {
+			ret = append(ret, s)
+		} else {
+			if _, ok := t.NpsboostV3[v2.Add]; ok {
+				ret = append(ret, s)
+			}
+		}
 	}
 	return ret, nil
 }

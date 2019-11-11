@@ -1,6 +1,7 @@
 package cmd
 
+import "translate/model"
+
 var (
-	subLinks []string
-	ruleName string
+	_args model.CliArgs
 )

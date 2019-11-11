@@ -13,26 +13,26 @@ import (
 	"translate/types"
 )
 
-func Run(typ, target, ruleName string, subLinks []string) error {
+func Run(typ string, args model.CliArgs) error {
 	//由于raw.githubusercontent.com域名可能存在问题，优先尝试请求规则
-	ruleOnline, err := GetRules(ruleName, target)
+	ruleOnline, err := GetRules(args.RuleName, args.Target)
 	if err != nil {
 		return errors.Wrap(err, "GetRules")
 	}
 	log.Println("加载规则成功")
 	//获取订阅配置
-	subs, err := types.Run(typ, subLinks)
+	subs, err := types.Run(typ, &args)
 	if err != nil {
 		return errors.Wrap(err, "types.Run")
 	}
 	log.Println("加载订阅成功")
 
-	rule, err := targets.Run(target, ruleOnline, subs)
+	rule, err := targets.Run(args.Target, ruleOnline, subs)
 	if err != nil {
 		return errors.Wrap(err, "targets.Run")
 	}
 	log.Println("规则转化成功")
-	fileName := time.Now().Format("20060102150405") + "." + model.RuleFileType[target]
+	fileName := time.Now().Format("20060102150405") + "." + model.RuleFileType[args.Target]
 	err = ioutil.WriteFile(fileName, rule, 0644)
 	if err != nil {
 		return errors.Wrap(err, "ioutil.WriteFile")
