@@ -37,7 +37,7 @@ var VmessCmd = &cobra.Command{
 		if len(args) != 1 {
 			log.Fatal("args is error")
 		}
-		err := translate.Run(cmd.CalledAs(), args[0], subLink, ruleName)
+		err := translate.Run(cmd.CalledAs(), args[0], ruleName, subLinks)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -46,7 +46,7 @@ var VmessCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(VmessCmd)
-	VmessCmd.PersistentFlags().StringVar(&subLink, "subLink", "", "订阅链接")
+	VmessCmd.PersistentFlags().StringSliceVar(&subLinks, "subLink", []string{}, "订阅链接")
 	//VmessCmd.PersistentFlags().StringVar(&ruleName, "ruleName", "", "订阅链接")
 	ruleName = "ConnersHua" //目前先只支持神机，其他后期再进行支持
 

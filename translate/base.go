@@ -13,7 +13,7 @@ import (
 	"translate/types"
 )
 
-func Run(typ, target, subLink, ruleName string) error {
+func Run(typ, target, ruleName string, subLinks []string) error {
 	//由于raw.githubusercontent.com域名可能存在问题，优先尝试请求规则
 	ruleOnline, err := GetRules(ruleName, target)
 	if err != nil {
@@ -21,7 +21,7 @@ func Run(typ, target, subLink, ruleName string) error {
 	}
 	log.Println("加载规则成功")
 	//获取订阅配置
-	subs, err := types.Run(typ, subLink)
+	subs, err := types.Run(typ, subLinks)
 	if err != nil {
 		return errors.Wrap(err, "types.Run")
 	}

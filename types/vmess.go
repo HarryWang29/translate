@@ -11,10 +11,10 @@ type Vmess struct {
 	model.VmessSetting
 }
 
-func NewVmess(subLink string) api {
+func NewVmess(subLinks []string) api {
 	return &Vmess{
 		apiBase: apiBase{
-			SubLink: subLink,
+			SubLinks: subLinks,
 		},
 	}
 }
@@ -25,8 +25,8 @@ func (t *Vmess) Run() ([]*model.Setting, error) {
 		return nil, errors.Wrap(err, "t.getSub")
 	}
 	ret := make([]*model.Setting, 0, len(t.Configs))
-	var v2 *Vmess
 	for _, value := range t.Configs {
+		var v2 *Vmess
 		err := json.Unmarshal([]byte(value), &v2)
 		if err != nil {
 			return nil, errors.Wrap(err, "json.Unmarshal")

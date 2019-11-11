@@ -1,6 +1,6 @@
 package cmd
 
 var (
-	subLink  string
+	subLinks []string
 	ruleName string
 )
