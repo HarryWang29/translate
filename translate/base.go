@@ -32,11 +32,13 @@ func Run(typ string, args model.CliArgs) error {
 		return errors.Wrap(err, "targets.Run")
 	}
 	log.Println("规则转化成功")
-	fileName := time.Now().Format("20060102150405") + "." + model.RuleFileType[args.Target]
+	fileName := typ + args.RuleName + args.Target + time.Now().Format("150405") + "." + model.RuleFileType[args.Target]
 	err = ioutil.WriteFile(fileName, rule, 0644)
 	if err != nil {
 		return errors.Wrap(err, "ioutil.WriteFile")
 	}
+	dir, _ := os.Getwd()
+	log.Printf("配置文件生成成功，路径：%s", dir+"/"+fileName)
 	return nil
 }
 
