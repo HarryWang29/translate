@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 	"time"
 	"translate/model"
 	"translate/targets"
@@ -32,7 +33,7 @@ func Run(typ string, args model.CliArgs) error {
 		return errors.Wrap(err, "targets.Run")
 	}
 	log.Println("规则转化成功")
-	fileName := typ + args.RuleName + args.Target + time.Now().Format("150405") + "." + model.RuleFileType[args.Target]
+	fileName := typ + args.RuleName + strings.Title(args.Target) + time.Now().Format("150405") + "." + model.RuleFileType[args.Target]
 	err = ioutil.WriteFile(fileName, rule, 0644)
 	if err != nil {
 		return errors.Wrap(err, "ioutil.WriteFile")

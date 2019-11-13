@@ -1,3 +1,5 @@
 bin/
 *.yaml
+*.conf
 .idea/
+*_test.go

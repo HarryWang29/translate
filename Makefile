@@ -1,6 +1,6 @@
 NAME=translate
 BINDIR=bin
-VERSION=v0.0.3
+VERSION=v0.0.4
 BUILDTIME=$(shell date -u)
 GOBUILD=CGO_ENABLED=0 go build -ldflags '-w -s'
 
@@ -83,7 +83,8 @@ $(gz_releases): %.gz : %
 
 $(zip_releases): %.zip : %
 	echo $(NAME)-$(basename $@).exe vmess clash --subLink=\"订阅链接\" > $(BINDIR)/v2ray2clash.bat
-	zip -m -j $(BINDIR)/$(NAME)-$(basename $@).zip $(BINDIR)/$(NAME)-$(basename $@).exe $(BINDIR)/v2ray2clash.bat
+	echo $(NAME)-$(basename $@).exe vmess surge3 --subLink=\"订阅链接\" > $(BINDIR)/v2ray2surge3.bat
+	zip -m -j $(BINDIR)/$(NAME)-$(basename $@).zip $(BINDIR)/$(NAME)-$(basename $@).exe $(BINDIR)/v2ray2clash.bat $(BINDIR)/v2ray2surge3.bat
 
 all-arch: $(PLATFORM_LIST) $(WINDOWS_ARCH_LIST)
 

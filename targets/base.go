@@ -9,6 +9,7 @@ var switchApi = make(map[string]func(string, []*model.Setting) api)
 
 func init() {
 	switchApi[model.Clash] = NewClash
+	switchApi[model.Surge3] = NewSurge3
 }
 
 type api interface {

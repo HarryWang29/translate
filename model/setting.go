@@ -1,6 +1,9 @@
 package model
 
-import "github.com/fatih/structs"
+import (
+	"fmt"
+	"github.com/fatih/structs"
+)
 
 type Setting struct {
 	Scheme string `json:"-" clash:"type"`
@@ -25,4 +28,19 @@ func (s *Setting) ToClash() map[string]interface{} {
 	m["type"] = s.Scheme
 	//todo 确认cipher字段
 	return m
+}
+
+func (s *Setting) ToSurge() (key, value string) {
+	value = fmt.Sprintf("%s, %s, %v, username=%s", s.Scheme, s.Add, s.Port, s.ID)
+	if s.Net == "ws" {
+		value += ", ws = true"
+		value += ", ws-path = " + s.Path
+		value += ", ws-headers = Host:" + s.Host
+	}
+	if s.TLS != "" {
+		value += ", tls=true"
+	} else {
+		value += ", tls=false"
+	}
+	return s.Ps, value
 }

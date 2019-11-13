@@ -10,7 +10,7 @@
 - [X] 将`v2ray`加入到`神机规则`中（clash）
 - [ ] 将`ssr`加入到`神机规则`中（clash）
 - [ ] 将`ss`加入到`神机规则`中（clash）
-- [ ] 将`v2ray`加入到`神机规则`中（surge）
+- [X] 将`v2ray`加入到`神机规则`中（surge）
 - [ ] ~~将`ssr`加入到`神机规则`中（surge）~~(写readme的时候没动脑子，哈哈)
 - [ ] 将`ss`加入到`神机规则`中（surge）
 
@@ -47,6 +47,10 @@
     ```bash
     ./translate-darwin-amd64 vmess clash --subLink="订阅链接"
     ```
+* 执行如下命令将v2ray转为clash(保留双引号)
+    ```bash
+    ./translate-darwin-amd64 vmess surge3 --subLink="订阅链接"
+    ```
 
 ## windows
 ### v2ray --> clash
@@ -54,6 +58,12 @@
 * 修改订阅链接
 * 保存退出
 * 双击`v2ray2clash.bat`
+
+### v2ray --> surge3
+* 用文本编辑器打开`v2ray2surge3.bat`
+* 修改订阅链接
+* 保存退出
+* 双击`v2ray2surge3.bat`
 
 # 感谢
 * [神机规则](https://github.com/ConnersHua/Profiles/tree/master)
