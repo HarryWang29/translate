@@ -58,6 +58,11 @@ func init() {
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.translate.yaml)")
 
+	rootCmd.PersistentFlags().StringSliceVar(&_args.SubLinks, "subLink", []string{}, "订阅链接")
+	rootCmd.PersistentFlags().StringVar(&_args.Npsboost, "npsboost", "", "喵帕斯过滤3j服务器")
+	//VmessCmd.PersistentFlags().StringVar(&ruleName, "ruleName", "", "订阅链接")
+	_args.RuleName = "ConnersHua" //目前先只支持神机，其他后期再进行支持
+
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")

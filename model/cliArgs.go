@@ -5,4 +5,5 @@ type CliArgs struct {
 	Target   string
 	RuleName string
 	Npsboost string //喵帕斯过滤
+	Port     int    //web监控
 }

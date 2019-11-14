@@ -22,22 +22,23 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"github.com/spf13/cobra"
 	"log"
 	"translate/translate"
+
+	"github.com/spf13/cobra"
 )
 
-// VmessCmd represents the Vmess command
-//todo 优化终端提示
-var VmessCmd = &cobra.Command{
-	Use:   "vmess",
-	Short: "订阅为vmess协议",
-	Long:  `订阅为vmess协议，默认使用神机规则`,
+// webCmd represents the web command
+var webCmd = &cobra.Command{
+	Use:   "web",
+	Short: "A brief description of your command",
+	Long: `A longer description that spans multiple lines and likely contains examples
+and usage of using your command. For example:
+
+Cobra is a CLI library for Go that empowers applications.
+This application is a tool to generate the needed files
+to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) != 1 {
-			log.Fatal("args is error")
-		}
-		_args.Target = args[0]
 		err := translate.Run(cmd.CalledAs(), _args)
 		if err != nil {
 			log.Fatal(err)
@@ -46,15 +47,17 @@ var VmessCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(VmessCmd)
+	rootCmd.AddCommand(webCmd)
+
+	webCmd.PersistentFlags().IntVar(&_args.Port, "port", 8829, "监听端口")
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// VmessCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// webCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// VmessCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// webCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

@@ -1,5 +1,9 @@
 package model
 
+const (
+	Web = "web"
+)
+
 //协议枚举
 const (
 	Vmess = "vmess"

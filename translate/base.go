@@ -7,43 +7,37 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
-	"strings"
-	"time"
 	"translate/model"
 	"translate/targets"
 	"translate/types"
 )
 
-func Run(typ string, args model.CliArgs) error {
-	//由于raw.githubusercontent.com域名可能存在问题，优先尝试请求规则
-	ruleOnline, err := GetRules(args.RuleName, args.Target)
-	if err != nil {
-		return errors.Wrap(err, "GetRules")
-	}
-	log.Println("加载规则成功")
-	//获取订阅配置
-	subs, err := types.Run(typ, &args)
-	if err != nil {
-		return errors.Wrap(err, "types.Run")
-	}
-	log.Println("加载订阅成功")
+var switchTranslate = make(map[string]func(typ string, args model.CliArgs) api)
 
-	rule, err := targets.Run(args.Target, ruleOnline, subs)
-	if err != nil {
-		return errors.Wrap(err, "targets.Run")
-	}
-	log.Println("规则转化成功")
-	fileName := typ + args.RuleName + strings.Title(args.Target) + time.Now().Format("150405") + "." + model.RuleFileType[args.Target]
-	err = ioutil.WriteFile(fileName, rule, 0644)
-	if err != nil {
-		return errors.Wrap(err, "ioutil.WriteFile")
-	}
-	dir, _ := os.Getwd()
-	log.Printf("配置文件生成成功，路径：%s", dir+"/"+fileName)
-	return nil
+func init() {
+	switchTranslate[model.Vmess] = NewTerminal
+	switchTranslate[model.Web] = NewWeb
 }
 
-func GetRules(name, target string) (string, error) {
+type api interface {
+	Run() error
+	GetRules(name, target string) (string, error)
+	translate(typ string, args model.CliArgs) ([]byte, error)
+}
+
+type apiBase struct {
+	typ  string
+	args model.CliArgs
+}
+
+func Run(typ string, args model.CliArgs) error {
+	if f, ok := switchTranslate[typ]; ok {
+		return f(typ, args).Run()
+	}
+	return fmt.Errorf("target(%s) is error", typ)
+}
+
+func (t *apiBase) GetRules(name, target string) (string, error) {
 	//优先查看本地是否有文件存在，若本地有规则文件，则优先使用本地
 	fileName, ok := model.RuleFileName[name+target]
 	if !ok {
@@ -70,4 +64,26 @@ func GetRules(name, target string) (string, error) {
 		return "", errors.Wrap(err, "httplib.Get")
 	}
 	return string(b), nil
+}
+
+func (t *apiBase) translate(typ string, args model.CliArgs) ([]byte, error) {
+	//由于raw.githubusercontent.com域名可能存在问题，优先尝试请求规则
+	ruleOnline, err := t.GetRules(t.args.RuleName, args.Target)
+	if err != nil {
+		return nil, errors.Wrap(err, "GetRules")
+	}
+	log.Println("加载规则成功")
+	//获取订阅配置
+	subs, err := types.Run(t.typ, &args)
+	if err != nil {
+		return nil, errors.Wrap(err, "types.Run")
+	}
+	log.Println("加载订阅成功")
+
+	rule, err := targets.Run(args.Target, ruleOnline, subs)
+	if err != nil {
+		return nil, errors.Wrap(err, "targets.Run")
+	}
+	log.Println("规则转化成功")
+	return rule, nil
 }
