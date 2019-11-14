@@ -34,7 +34,12 @@ func (s *Setting) ToSurge() (key, value string) {
 	value = fmt.Sprintf("%s, %s, %v, username=%s", s.Scheme, s.Add, s.Port, s.ID)
 	if s.Net == "ws" {
 		value += ", ws = true"
-		value += ", ws-path = " + s.Path
+		value += ", ws-path = "
+		if s.Path == "" {
+			value += "/"
+		} else {
+			value += s.Path
+		}
 		value += ", ws-headers = Host:" + s.Host
 	}
 	if s.TLS != "" {
