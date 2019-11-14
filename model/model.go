@@ -66,5 +66,5 @@ type VmessSetting struct {
 	Ps   string      `json:"ps,omitempty" clash:"name"`
 	TLS  string      `json:"tls,omitempty" clash:"-"` //手工处理
 	Type string      `json:"type,omitempty" clash:"cipher"`
-	V    string      `json:"v,omitempty" clash:"-"`
+	V    interface{} `json:"v,omitempty" clash:"-"`
 }
