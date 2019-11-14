@@ -1,6 +1,6 @@
 NAME=translate
 BINDIR=bin
-VERSION=v0.0.4
+VERSION=v0.0.5
 BUILDTIME=$(shell date -u)
 GOBUILD=CGO_ENABLED=0 go build -ldflags '-w -s'
 
