@@ -4,7 +4,7 @@
 这个项目也有一些借鉴了[@ne1llee](https://github.com/ne1llee)老哥的代码，其中makefile我就直接抄了过来，要是老哥觉得不合适，可与我联系
 # 功能
 - [X] 命令行版本
-- [X] web版本 ~~(关于web订阅一直没有开始：web订阅很多app都不允许修改，很不爽啊，我还是喜欢用文本导入，还可以自定义规则)~~终于做好啦~
+- [X] web版本 ~~(关于web订阅一直没有开始：web订阅很多app都不允许修改，很不爽啊，我还是喜欢用文本导入，还可以自定义规则)~~ 终于做好啦~
 - [ ] web版本订阅增加账户认证
 - [X] 支持多订阅链接
 - [X] 支持喵帕斯订阅提取v3节点
@@ -86,6 +86,11 @@ http://127.0.0.1:8829/translate?from=vmess&to=clash[&subLink=link1&subLink=link2
 * `from`来源订阅协议
 * `to`目标转换软件
 * `subLink` 支持多订阅链接，不会记录缓存，每次都必须填写，此处订阅链接**必须进行urlencode**
+
+### 公共网络服务
+```url
+https://translate.harrywrz.com/translate?from=vmess&to=clash&subLink=urlencode
+```
 
 ### 样例（语文不好，怕解释不清楚）
 * 使用终端传入订阅链接
