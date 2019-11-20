@@ -7,6 +7,7 @@ const (
 //协议枚举
 const (
 	Vmess = "vmess"
+	SS    = "ss"
 )
 
 const (
@@ -57,18 +58,4 @@ func init() {
 
 func setRuleFileName(ruleName, target string) {
 	RuleFileName[ruleName+target] = ruleName + target + "." + RuleFileType[target]
-}
-
-type VmessSetting struct {
-	Add  string      `json:"add,omitempty" clash:"server"`
-	Aid  interface{} `json:"aid,omitempty" clash:"alterId"`
-	Host string      `json:"host,omitempty" clash:"-"`
-	ID   string      `json:"id,omitempty" clash:"uuid"`
-	Net  string      `json:"net,omitempty" clash:"-"`  //手工处理
-	Path string      `json:"path,omitempty" clash:"-"` //手工处理
-	Port interface{} `json:"port,omitempty" clash:"port"`
-	Ps   string      `json:"ps,omitempty" clash:"name"`
-	TLS  string      `json:"tls,omitempty" clash:"-"` //手工处理
-	Type string      `json:"type,omitempty" clash:"cipher"`
-	V    interface{} `json:"v,omitempty" clash:"-"`
 }

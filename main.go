@@ -15,8 +15,15 @@ limitations under the License.
 */
 package main
 
-import "translate/cmd"
+import (
+	"log"
+	"translate/cmd"
+)
 
+func init() {
+	//初始化日志
+	log.SetFlags(log.Ldate | log.Lshortfile)
+}
 func main() {
 	cmd.Execute()
 }

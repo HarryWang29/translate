@@ -9,17 +9,13 @@
 - [X] 支持多订阅链接
 - [X] 支持喵帕斯订阅提取v3节点
 - [X] 将`v2ray`加入到`神机规则`中（clash）
-- [ ] 将`ssr`加入到`神机规则`中（clash）
-- [ ] 将`ss`加入到`神机规则`中（clash）
+- [X] 将`ss`加入到`神机规则`中（clash）
 - [X] 将`v2ray`加入到`神机规则`中（surge）
-- [ ] ~~将`ssr`加入到`神机规则`中（surge）~~(写readme的时候没动脑子，哈哈)
-- [ ] 将`ss`加入到`神机规则`中（surge）
+- [X] 将`ss`加入到`神机规则`中（surge）
+- [ ] 黑白名单功能
+- [ ] 交互式终端操作
 
-.
-
-.
-
-.
+...
 
 # 使用方法
 * 从[release](https://github.com/HarryWang29/translate/releases)下载二进制文件
@@ -51,9 +47,17 @@
     ```bash
     ./translate-darwin-amd64 vmess clash --subLink="订阅链接"
     ```
-* 执行如下命令将v2ray转为clash(保留双引号)
+* 执行如下命令将v2ray转为surge3(保留双引号)
     ```bash
     ./translate-darwin-amd64 vmess surge3 --subLink="订阅链接"
+    ```
+* 执行如下命令将ss转为clash(保留双引号)
+    ```bash
+    ./translate-darwin-amd64 ss clash --subLink="订阅链接"
+    ```
+* 执行如下命令将ss转为surge3(保留双引号)
+    ```bash
+    ./translate-darwin-amd64 ss surge3 --subLink="订阅链接"
     ```
 
 ### windows
@@ -134,12 +138,14 @@ https://translate.harrywrz.com/translate?from=vmess&to=clash&subLink=urlencode
 * **_终端传入的`subLink`会被保留在缓存中，后期每次请求都会自动获取最新节点信息_**
 
 # 关于测试
-个人项目测试案例较少，测试资源较少，若有问题多多包涵，欢迎打脸
+> 个人项目测试案例较少，测试资源较少，若有问题多多包涵，欢迎打脸
+>
+> 有老哥提醒我ss格式非常混乱，我这里样本较少，若有遇到无法成功订阅的情况，麻烦脱敏后提供格式
 
 已测试机场订阅:
-* dler
-* 喵帕斯
-* 极游得(热心网友提供)
+* dler(ss/vmess)
+* 喵帕斯(vmess)
+* 极游得(热心网友提供)(vmess)
 
 # 感谢
 * [神机规则](https://github.com/ConnersHua/Profiles/tree/master)

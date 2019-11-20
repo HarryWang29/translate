@@ -13,7 +13,7 @@ type Surge struct {
 	options ini.LoadOptions
 }
 
-func NewSurge3(rule string, settings []*model.Setting) api {
+func NewSurge3(rule string, settings []model.Setting) api {
 	return &Surge{
 		apiBase: apiBase{
 			Rule:     rule,

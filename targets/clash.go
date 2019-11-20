@@ -10,7 +10,7 @@ type Clash struct {
 	apiBase
 }
 
-func NewClash(rule string, settings []*model.Setting) api {
+func NewClash(rule string, settings []model.Setting) api {
 	return &Clash{
 		apiBase: apiBase{
 			Rule:     rule,

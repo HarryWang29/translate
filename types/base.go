@@ -14,14 +14,15 @@ var switchApi = make(map[string]func(args *model.CliArgs) api)
 
 func init() {
 	switchApi[model.Vmess] = NewVmess
+	switchApi[model.SS] = NewSS
 }
 
 type api interface {
-	Run() ([]*model.Setting, error)
+	Run() ([]model.Setting, error)
 	getSub() error
 }
 
-func Run(typ string, args *model.CliArgs) ([]*model.Setting, error) {
+func Run(typ string, args *model.CliArgs) ([]model.Setting, error) {
 	if f, ok := switchApi[typ]; ok && args != nil {
 		return f(args).Run()
 	}
@@ -64,7 +65,13 @@ func (a *apiBase) getSub() error {
 		}
 		for _, value := range matched {
 			//直接解码
-			a.Configs = append(a.Configs, util.Base64Decode(value[1]))
+			v := ""
+			if value[1] != model.SS {
+				v = util.Base64Decode(value[2])
+			} else {
+				v = value[0]
+			}
+			a.Configs = append(a.Configs, v)
 		}
 	}
 	return nil
@@ -76,7 +83,7 @@ func (a *apiBase) dealSub(url string) ([][]string, error) {
 		return nil, errors.Wrap(err, "httplib.Get")
 	}
 	//通过正则匹配规则
-	re := regexp.MustCompile(`.*://(.*)`)
+	re := regexp.MustCompile(`(.*)://(.*)`)
 	matched := re.FindAllStringSubmatch(util.Base64Decode(string(resp)), -1)
 	return matched, nil
 }

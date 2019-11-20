@@ -16,6 +16,7 @@ var switchTranslate = make(map[string]func(typ string, args model.CliArgs) api)
 
 func init() {
 	switchTranslate[model.Vmess] = NewTerminal
+	switchTranslate[model.SS] = NewTerminal
 	switchTranslate[model.Web] = NewWeb
 }
 

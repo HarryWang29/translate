@@ -5,7 +5,7 @@ import (
 	"translate/model"
 )
 
-var switchApi = make(map[string]func(string, []*model.Setting) api)
+var switchApi = make(map[string]func(string, []model.Setting) api)
 
 func init() {
 	switchApi[model.Clash] = NewClash
@@ -16,7 +16,7 @@ type api interface {
 	Run() ([]byte, error)
 }
 
-func Run(target, rule string, settings []*model.Setting) ([]byte, error) {
+func Run(target, rule string, settings []model.Setting) ([]byte, error) {
 	if f, ok := switchApi[target]; ok {
 		return f(rule, settings).Run()
 	}
@@ -25,5 +25,5 @@ func Run(target, rule string, settings []*model.Setting) ([]byte, error) {
 
 type apiBase struct {
 	Rule     string
-	Settings []*model.Setting
+	Settings []model.Setting
 }
