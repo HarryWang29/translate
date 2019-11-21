@@ -13,7 +13,7 @@
 - [X] 将`v2ray`加入到`神机规则`中（surge）
 - [X] 将`ss`加入到`神机规则`中（surge）
 - [ ] 黑白名单功能
-- [ ] 交互式终端操作
+- [X] 交互式终端操作
 
 ...
 
@@ -36,7 +36,25 @@
         ```
     * 注意，喵帕斯过滤功能无法和多订阅一起使用，此功能会按照ss订阅来过滤节点，会将第二个机场的所有节点全部过滤
     
+    
+## 非终端使用
+喜大普奔，增加了终端交互方式使用，现无论mac/windows/linux中皆可双击使用(win10需要双击`run.bat`)，若双击无效，需要增加可执行权限
+```bash
+sudo chmod 766 translate-darwin-amd64 
+```
 ## 终端使用方式
+
+### 交互式功能
+```bash
+sudo chmod 766 translate-darwin-amd64 
+./translate-darwin-amd64
+```
+根据终端提醒数据即可：
+```bash
+请输入想要启动的方式(web/ss/vmess):ss
+请输入目标程序(clash/surge3):surge3
+请输入订阅链接(多订阅使用','分割:url1,url2):订阅链接
+```
 
 ### mac/linux
 * 执行如下命令修改可执行权限

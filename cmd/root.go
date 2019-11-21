@@ -18,7 +18,10 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
+	"log"
 	"os"
+	"strings"
+	"translate/translate"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
@@ -37,7 +40,21 @@ var rootCmd = &cobra.Command{
 计划支持协议（v2ray/ss/ssr)+多规则-->（clash/Quantumult(X)/Kitsunebi/surge/...)`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	//	Run: func(cmd *cobra.Command, args []string) { },
+	Run: func(cmd *cobra.Command, args []string) {
+		from, subLink := "", ""
+		fmt.Printf("请输入想要启动的方式(web/ss/vmess):")
+		_, _ = fmt.Scanln(&from)
+		fmt.Printf("请输入目标程序(clash/surge3):")
+		_, _ = fmt.Scanln(&_args.Target)
+		fmt.Printf("请输入订阅链接(多订阅使用','分割：url1,url2):")
+		_, _ = fmt.Scanln(&subLink)
+
+		_args.SubLinks = strings.Split(subLink, ",")
+		err := translate.Run(from, _args)
+		if err != nil {
+			log.Fatal(err)
+		}
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
