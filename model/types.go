@@ -7,21 +7,22 @@ import (
 
 type Setting interface {
 	ToSurge() (key, value string)
+	ToQuantumultX() (name, value string)
 	ToClash() map[string]interface{}
 }
 
 type VmessSetting struct {
-	Add  string      `json:"add,omitempty" clash:"server"`
-	Aid  interface{} `json:"aid,omitempty" clash:"alterId"`
-	Host string      `json:"host,omitempty" clash:"-"`
-	ID   string      `json:"id,omitempty" clash:"uuid"`
-	Net  string      `json:"net,omitempty" clash:"-"`  //手工处理
-	Path string      `json:"path,omitempty" clash:"-"` //手工处理
-	Port interface{} `json:"port,omitempty" clash:"port"`
-	Ps   string      `json:"ps,omitempty" clash:"name"`
-	TLS  string      `json:"tls,omitempty" clash:"-"` //手工处理
-	Type string      `json:"type,omitempty" clash:"cipher"`
-	V    interface{} `json:"v,omitempty" clash:"-"`
+	Add  string      `json:"add,omitempty" clash:"server" qx:"vmess"`
+	Aid  interface{} `json:"aid,omitempty" clash:"alterId" qx:"-"`
+	Host string      `json:"host,omitempty" clash:"-" qx:"obfs-host"`
+	ID   string      `json:"id,omitempty" clash:"uuid" qx:"password"`
+	Net  string      `json:"net,omitempty" clash:"-" qx:"obfs,omitempty"`      //手工处理
+	Path string      `json:"path,omitempty" clash:"-" qx:"obfs-uri,omitempty"` //手工处理
+	Port interface{} `json:"port,omitempty" clash:"port" qx:"-"`
+	Ps   string      `json:"ps,omitempty" clash:"name" qx:"tag"`
+	TLS  string      `json:"tls,omitempty" clash:"-" qx:"-"` //手工处理
+	Type string      `json:"type,omitempty" clash:"cipher" qx:"method"`
+	V    interface{} `json:"v,omitempty" clash:"-" qx:"-"`
 }
 
 func (t *VmessSetting) ToSurge() (key, value string) {
@@ -44,9 +45,23 @@ func (t *VmessSetting) ToSurge() (key, value string) {
 	return t.Ps, value
 }
 
+func (t *VmessSetting) ToQuantumultX() (name, v string) {
+	s := structs.New(t)
+	s.TagName = "qx"
+	m := s.Map()
+	m[Vmess] = fmt.Sprintf("%v:%v", m[Vmess], t.Port)
+	v = fmt.Sprintf("%v=%v,", Vmess, m[Vmess])
+	delete(m, Vmess)
+	for key, value := range m {
+		v += fmt.Sprintf("%v=%v,", key, value)
+	}
+	return t.Ps, v[:len(v)-1]
+}
+
 func (t *VmessSetting) ToClash() map[string]interface{} {
-	structs.DefaultTagName = Clash
-	m := structs.Map(t)
+	s := structs.New(t)
+	s.TagName = Clash
+	m := s.Map()
 	if t.TLS != "" {
 		m["tls"] = true
 	} else {
@@ -63,13 +78,13 @@ func (t *VmessSetting) ToClash() map[string]interface{} {
 }
 
 type SSSetting struct {
-	Cipher   string `clash:"cipher"`
-	Password string `clash:"password"`
-	Domain   string `clash:"server"`
-	Port     string `clash:"port"`
-	Name     string `clash:"name"`
-	Obfs     string `clash:"obfs,omitempty"`
-	ObfsHost string `clash:"obfs-host,omitempty"`
+	Cipher   string `clash:"cipher" qx:"method"`
+	Password string `clash:"password" qx:"password"`
+	Domain   string `clash:"server" qx:"shadowsocks"`
+	Port     string `clash:"port" qx:"-"`
+	Name     string `clash:"name" qx:"tag"`
+	Obfs     string `clash:"obfs,omitempty" qx:"obfs"`
+	ObfsHost string `clash:"obfs-host,omitempty" qx:"obfs-host"`
 }
 
 func (t *SSSetting) ToSurge() (key, value string) {
@@ -84,8 +99,22 @@ func (t *SSSetting) ToSurge() (key, value string) {
 }
 
 func (t *SSSetting) ToClash() map[string]interface{} {
-	structs.DefaultTagName = Clash
-	m := structs.Map(t)
+	s := structs.New(t)
+	s.TagName = Clash
+	m := s.Map()
 	m["type"] = SS
 	return m
+}
+
+func (t *SSSetting) ToQuantumultX() (name, v string) {
+	s := structs.New(t)
+	s.TagName = "qx"
+	m := s.Map()
+	m["shadowsocks"] = fmt.Sprintf("%v:%v", m["shadowsocks"], t.Port)
+	v = fmt.Sprintf("%v=%v,", "shadowsocks", m["shadowsocks"])
+	delete(m, "shadowsocks")
+	for key, value := range m {
+		v += fmt.Sprintf("%v=%v,", key, value)
+	}
+	return t.Name, v[:len(v)-1]
 }

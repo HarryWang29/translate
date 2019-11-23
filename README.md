@@ -5,15 +5,17 @@
 # 功能
 - [X] 命令行版本
 - [X] web版本 ~~(关于web订阅一直没有开始：web订阅很多app都不允许修改，很不爽啊，我还是喜欢用文本导入，还可以自定义规则)~~ 终于做好啦~
-- [ ] web版本订阅增加账户认证
 - [X] 支持多订阅链接
 - [X] 支持喵帕斯订阅提取v3节点
 - [X] 将`v2ray`加入到`神机规则`中（clash）
 - [X] 将`ss`加入到`神机规则`中（clash）
 - [X] 将`v2ray`加入到`神机规则`中（surge）
 - [X] 将`ss`加入到`神机规则`中（surge）
-- [ ] 黑白名单功能
+- [X] 将`v2ray`加入到`神机规则`中（quantumultx）
+- [X] 将`ss`加入到`神机规则`中（quantumultx）
 - [X] 交互式终端操作
+- [ ] 黑白名单功能
+- [ ] web版本订阅增加账户认证
 
 ...
 
@@ -69,6 +71,10 @@ sudo chmod 766 translate-darwin-amd64
     ```bash
     ./translate-darwin-amd64 vmess surge3 --subLink="订阅链接"
     ```
+* 执行如下命令将v2ray转为quantumultx(保留双引号)
+    ```bash
+    ./translate-darwin-amd64 vmess quantumultx --subLink="订阅链接"
+    ```
 * 执行如下命令将ss转为clash(保留双引号)
     ```bash
     ./translate-darwin-amd64 ss clash --subLink="订阅链接"
@@ -77,20 +83,14 @@ sudo chmod 766 translate-darwin-amd64
     ```bash
     ./translate-darwin-amd64 ss surge3 --subLink="订阅链接"
     ```
+* 执行如下命令将ss转为quantumultx(保留双引号)
+    ```bash
+    ./translate-darwin-amd64 ss quantumultx --subLink="订阅链接"
+    ```
 
 ### windows
-* v2ray --> clash
-    * 用文本编辑器打开`v2ray2clash.bat`
-    * 修改订阅链接(保留双引号)
-    * 保存退出
-    * 双击`v2ray2clash.bat`
+* 双击`run.bat`
 
-* v2ray --> surge3
-    * 用文本编辑器打开`v2ray2surge3.bat`
-    * 修改订阅链接(保留双引号)
-    * 保存退出
-    * 双击`v2ray2surge3.bat`
-    
 ## web订阅方式(发版匆忙，若有问题，欢迎打脸)
 ### 启动命令
 ```bash

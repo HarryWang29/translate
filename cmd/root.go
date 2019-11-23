@@ -44,7 +44,7 @@ var rootCmd = &cobra.Command{
 		from, subLink := "", ""
 		fmt.Printf("请输入想要启动的方式(web/ss/vmess):")
 		_, _ = fmt.Scanln(&from)
-		fmt.Printf("请输入目标程序(clash/surge3):")
+		fmt.Printf("请输入目标程序(clash/surge3/quantumultx):")
 		_, _ = fmt.Scanln(&_args.Target)
 		fmt.Printf("请输入订阅链接(多订阅使用','分割：url1,url2):")
 		_, _ = fmt.Scanln(&subLink)
