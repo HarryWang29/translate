@@ -46,6 +46,9 @@ func (t *VmessSetting) ToSurge() (key, value string) {
 }
 
 func (t *VmessSetting) ToQuantumultX() (name, v string) {
+	if t.Net == "tcp" && t.TLS != "" {
+		t.Net = "over-tls"
+	}
 	s := structs.New(t)
 	s.TagName = "qx"
 	m := s.Map()
@@ -53,6 +56,9 @@ func (t *VmessSetting) ToQuantumultX() (name, v string) {
 	v = fmt.Sprintf("%v=%v,", Vmess, m[Vmess])
 	delete(m, Vmess)
 	for key, value := range m {
+		if value == "" || value == "tcp" {
+			continue
+		}
 		v += fmt.Sprintf("%v=%v,", key, value)
 	}
 	return t.Ps, v[:len(v)-1]
